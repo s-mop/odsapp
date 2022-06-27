@@ -25,13 +25,13 @@ public class OdspocApplication {
 	MongoTemplate mongoTemplate(MongoDatabaseFactory mongoDbFactory, MongoConverter converter) {
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory, converter);
 		log.debug("Setting WriteConcern statically to ACKNOWLEDGED");
-		mongoTemplate.setWriteConcern(WriteConcern.UNACKNOWLEDGED);
+		mongoTemplate.setWriteConcern(WriteConcern.MAJORITY);
 		// Version 2: provide a WriteConcernResolver, which is called for _every_ MongoAction
 		// which might degrade performance slightly (not tested)
 		// and is very flexible to determine the value
 		mongoTemplate.setWriteConcernResolver(action -> {
 			log.debug("Action {} called on collection {} for document {} with WriteConcern.MAJORITY. Default WriteConcern was {}", action.getMongoActionOperation(), action.getCollectionName(), action.getDocument(), action.getDefaultWriteConcern());
-			return WriteConcern.UNACKNOWLEDGED;
+			return WriteConcern.MAJORITY;
 		});
 		mongoTemplate.setWriteResultChecking(WriteResultChecking.EXCEPTION);
 		return mongoTemplate;
