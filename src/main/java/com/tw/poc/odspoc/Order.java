@@ -21,6 +21,7 @@ public class Order {
     private String orderNO;
 
     //test sharding strategy
+    @Indexed
     private int year = 2022 - new Random().nextInt(5);
 
     @Indexed
