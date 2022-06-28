@@ -21,9 +21,13 @@ public class OrderController {
 
     @PostMapping(path = "syncOrder")
     public Order syncOrder(@RequestBody Order order) {
-        Order mo = mockOneOrder();
-        BeanUtils.copyProperties(order, mo);
-        return orderRepository.save(mo);
+        fillOrder(order);
+        return orderRepository.save(order);
+    }
+
+    @PostMapping(path = "writeOrder")
+    public Order writeOrder(@RequestBody Order order) {
+        return orderRepository.save(order);
     }
 
     @PostMapping(path = "page")
@@ -36,7 +40,7 @@ public class OrderController {
         return orderRepository.findAll(example, pageable);
     }
 
-    @PostMapping(path = "slice/{uid}")
+    @PostMapping(path = "page/{uid}")
     public Slice<Order> slice(@PathVariable("uid") Long userId, @PageableDefault Pageable pageable) {
         return orderRepository.findByUserId(userId,pageable);
     }
@@ -47,9 +51,7 @@ public class OrderController {
     }
 
 
-    private Order mockOneOrder() {
-        Order o = new Order();
-
+    private Order fillOrder(Order o) {
         o.setYear(2022 - new Random().nextInt(5));
         o.setUserId(Long.valueOf((long) (10000 + new Random().nextInt(5000))));
         o.setStoreId(Long.valueOf((long) (20000 + new Random().nextInt(2000))));
