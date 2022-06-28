@@ -40,7 +40,7 @@ public class OrderController {
         return orderRepository.findAll(example, pageable);
     }
 
-    @PostMapping(path = "page/{uid}")
+    @PostMapping(path = "slice/{uid}")
     public Slice<Order> slice(@PathVariable("uid") Long userId, @PageableDefault Pageable pageable) {
         return orderRepository.findByUserId(userId,pageable);
     }
