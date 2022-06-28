@@ -20,17 +20,18 @@ public class Order {
 
     private String orderNO;
 
-    //test sharding strategy
-    private int year = 2022 - new Random().nextInt(5);
+    private Integer year;
 
-    private Long userId = Long.valueOf((long) (10000 + new Random().nextInt(5000)));
-    private Long storeId = Long.valueOf((long) (20000 + new Random().nextInt(2000)));
+    private Long userId;
+    private Long storeId;
 
-    private BigDecimal totalPrice = new BigDecimal(10 + Math.random() * 20).setScale(2,BigDecimal.ROUND_HALF_UP);
-    private BigDecimal payPrice = totalPrice;
+    private BigDecimal totalPrice;
+    private BigDecimal payPrice;
+
+    private String orderType;
 
     private LocalDateTime orderTime;
-    private LocalDateTime syncTime = LocalDateTime.now();
+    private LocalDateTime syncTime;
 
     private List<OrderItem> orderItems;
     private List<OrderCoupon> coupons;
