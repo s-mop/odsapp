@@ -2,17 +2,16 @@ package com.tw.poc.odspoc;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Random;
 
 @RestController
@@ -36,6 +35,17 @@ public class OrderController {
         Example<Order> example = Example.of(order,matcher);
         return orderRepository.findAll(example, pageable);
     }
+
+    @PostMapping(path = "slice/{uid}")
+    public Slice<Order> slice(@PathVariable("uid") Long userId, @PageableDefault Pageable pageable) {
+        return orderRepository.findByUserId(userId,pageable);
+    }
+
+    @PostMapping(path = "get")
+    public Optional<Order> get(@RequestBody Order o) {
+        return orderRepository.findById(o.getId());
+    }
+
 
     private Order mockOneOrder() {
         Order o = new Order();
