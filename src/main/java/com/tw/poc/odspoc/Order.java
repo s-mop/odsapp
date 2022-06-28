@@ -21,7 +21,7 @@ public class Order {
     private String orderNO;
 
     //test sharding strategy
-    private String year = String.valueOf((long) (2022 - new Random().nextInt(5)));
+    private int year = 2022 - new Random().nextInt(5);
 
     @Indexed
     private Long userId = Long.valueOf((long) (10000 + new Random().nextInt(5000)));
