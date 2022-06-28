@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 @Document
 @Data
@@ -19,9 +20,12 @@ public class Order {
 
     private String orderNO;
 
+    //test sharding strategy
+    private String year = String.valueOf((long) (2022 - new Random().nextInt(5)));
+
     @Indexed
-    private Long userId = Long.valueOf((long) (10000 + Math.random() * 5000));
-    private Long storeId = Long.valueOf((long) (20000 + Math.random() * 2000));
+    private Long userId = Long.valueOf((long) (10000 + new Random().nextInt(5000)));
+    private Long storeId = Long.valueOf((long) (20000 + new Random().nextInt(2000)));
 
     private BigDecimal totalPrice = new BigDecimal(10 + Math.random() * 20).setScale(2,BigDecimal.ROUND_HALF_UP);
     private BigDecimal payPrice = totalPrice;
