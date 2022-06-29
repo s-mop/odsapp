@@ -1,5 +1,6 @@
 package com.tw.poc.odspoc;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
@@ -56,13 +58,30 @@ public class OrderController {
         o.setUserId(Long.valueOf((long) (10000 + new Random().nextInt(5000))));
         o.setStoreId(Long.valueOf((long) (20000 + new Random().nextInt(2000))));
 
-        o.setTotalPrice(new BigDecimal(10 + Math.random() * 20).setScale(2,BigDecimal.ROUND_HALF_UP));
+        o.setTotalPrice(new BigDecimal(30 + Math.random() * 60).setScale(2,BigDecimal.ROUND_HALF_UP));
 
         o.setPayPrice(o.getTotalPrice());
 
         o.setOrderType(String.valueOf(3920 + new Random().nextInt(20)));
 
         o.setSyncTime(LocalDateTime.now());
+        ArrayList<OrderCoupon> coupons = new ArrayList<>();
+        for (int i = 0; i < new Random().nextInt(2) ;i++)
+            coupons.add(new OrderCoupon());
+        o.setCoupons(coupons);
+        ArrayList<OrderItem> orderItems = new ArrayList<>();
+        for (int i = 0; i < new Random().nextInt(3) + 1;i++)
+            orderItems.add(mockOrderItem());
+        o.setOrderItems(orderItems);
         return o;
+    }
+
+    private OrderItem mockOrderItem() {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItemCode(RandomStringUtils.randomAlphanumeric(6));
+        orderItem.setItemPrice(new BigDecimal(10 + Math.random() * 20).setScale(2,BigDecimal.ROUND_HALF_UP));
+        orderItem.setItemDiscount(new BigDecimal(Math.random() * 4).setScale(2,BigDecimal.ROUND_HALF_UP));
+        orderItem.setItemName("拿铁-随机名字-" + RandomStringUtils.randomAlphanumeric(1));
+        return orderItem;
     }
 }
