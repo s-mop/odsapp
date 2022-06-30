@@ -1,6 +1,7 @@
 package com.tw.poc.odspoc;
 
 import com.mongodb.MongoClientSettings;
+import com.mongodb.ReadPreference;
 import com.mongodb.WriteConcern;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -24,6 +25,7 @@ public class OdspocApplication {
 	MongoClientSettings mongoClientSettings() {
 		MongoClientSettings.Builder builder = MongoClientSettings.builder();
 		builder.writeConcern(WriteConcern.UNACKNOWLEDGED);
+		builder.readPreference(ReadPreference.secondary());
 		return builder.build();
 	}
 	@Bean
