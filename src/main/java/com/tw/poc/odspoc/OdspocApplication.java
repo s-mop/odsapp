@@ -25,7 +25,7 @@ public class OdspocApplication {
 	MongoClientSettings mongoClientSettings() {
 		MongoClientSettings.Builder builder = MongoClientSettings.builder();
 		builder.writeConcern(WriteConcern.UNACKNOWLEDGED);
-		builder.readPreference(ReadPreference.secondary());
+		builder.readPreference(ReadPreference.secondaryPreferred());
 		return builder.build();
 	}
 	@Bean
