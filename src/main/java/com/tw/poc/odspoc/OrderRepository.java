@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends MongoRepository<Order, String> {
     Slice<Order> findByUserId(Long userId, Pageable pageable);
+    Slice<Order> findByStoreId(Long storeId, Pageable pageable);
 }

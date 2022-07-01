@@ -46,6 +46,10 @@ public class OrderController {
     public Slice<Order> slice(@PathVariable("uid") Long userId, @PageableDefault Pageable pageable) {
         return orderRepository.findByUserId(userId,pageable);
     }
+    @PostMapping(path = "slice/store/{sid}")
+    public Slice<Order> sliceByStore(@PathVariable("sid") Long storeId, @PageableDefault Pageable pageable) {
+        return orderRepository.findByUserId(storeId, pageable);
+    }
 
     @PostMapping(path = "get")
     public Optional<Order> get(@RequestBody Order o) {
