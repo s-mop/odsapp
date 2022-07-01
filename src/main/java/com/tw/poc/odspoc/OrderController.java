@@ -48,7 +48,7 @@ public class OrderController {
     }
     @PostMapping(path = "slice/store/{sid}")
     public Slice<Order> sliceByStore(@PathVariable("sid") Long storeId, @PageableDefault Pageable pageable) {
-        return orderRepository.findByUserId(storeId, pageable);
+        return orderRepository.findByStoreId(storeId, pageable);
     }
 
     @PostMapping(path = "get")
